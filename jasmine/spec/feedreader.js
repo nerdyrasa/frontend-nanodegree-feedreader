@@ -79,6 +79,14 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
         beforeEach(function(done) {
+
+            // The following two expectations must be met for the test to be valid. Although this was
+            // checked in the first test suite, the project specification explicitly stated that there should be
+            // "error handling" for undefined variables and out-of-bound array access and that tests should not
+            // depend on the results of other tests.
+            expect(allFeeds).toBeDefined();
+            expect(allFeeds.length).not.toBe(0);
+
             loadFeed(0, function() {
                 done();
             });
@@ -105,13 +113,22 @@ $(function() {
         // Setup:
         // Select the feed with index 0 to be the oldFeed to get the href for comparison.
         beforeEach(function(done) {
+            // This test requires allFeeds[0] and allFeeds[1] to exist and that they have url fields.
+            // Wasn't sure where to put this or if this should be done some other way.
+            expect(allFeeds).toBeDefined();
+            expect(allFeeds.length).toBeGreaterThan(1);
+            expect(allFeeds[0].url).toBeDefined();
+            expect(allFeeds[0].url.length).not.toBe(0);
+            expect(allFeeds[1].url).toBeDefined();
+            expect(allFeeds[1].url.length).not.toBe(0);
+
             loadFeed(0, function() {
                 oldFeedHref = $('.entry-link').first().attr('href');
                 done();
             });
         });
 
-        it('Should change the content', function(done) {
+        it('should change the content', function(done) {
             // Select feed with index 1 to be the newFeed. Compare the href values of the new and old feeds.
             // The test passes if the href values are not equal.
             loadFeed(1, function() {
