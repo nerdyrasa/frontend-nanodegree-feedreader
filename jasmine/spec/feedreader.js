@@ -69,7 +69,7 @@ $(function() {
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
-        /* TODO: Write a test that ensures the menu changes
+        /* This test ensures that the menu changes
          * visibility when the menu icon is clicked. This test
          * should have two expectations: does the menu display when
          * clicked and does it hide when clicked again.
@@ -89,25 +89,63 @@ $(function() {
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
 
-
-        /* TODO: Write a test that ensures when the loadFeed
+        /* This test ensures that when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                done();
+            });
+        });
+
+        it('should be loaded', function(done) {
+            expect($('.entry-link').length).toBeGreaterThan(0);
+            done();
+        });
     });
 
 
-
-
     /* TODO: Write a new test suite named "New Feed Selection" */
-    describe('RSS Feeds', function() {
+    describe('New Feed Selection', function() {
 
-        /* TODO: Write a test that ensures when a new feed is loaded
+        /* This test ensures that when a new feed is loaded
          * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
+         * loadFeed() is asynchronous.
          */
+
+        // Test setup loads a feed. Then need to load another feed.
+        // "Compare" the two feeds. Now how do you "compare" the two?
+        var oldFeedHref = null,
+            newFeedHref = null;
+
+
+        // The old feed is loaded first. This is asynchronous.
+
+
+        beforeEach(function(done) {
+             // This will store the old content in the variable oldFeed which then will be used for comparision with the old feed.
+            loadFeed(0, function() {
+                oldFeed = $('.entry').html();
+                console.log('old ', oldFeed);
+
+                done();
+            });
+        });
+
+        it('Should change the content', function(done) {
+
+            loadFeed(0, function() {
+                newFeed = $('.entry').html();
+                console.log('new ', newFeed);
+                expect(oldFeed).not.toEqual(newFeed);
+                done();
+            });
+        });
+
+
     });
 
 }());
