@@ -1,7 +1,7 @@
 # Project Checklist
 
 - [x] 1. Take the JavaScript Testing course
-- [x] 2- .Dwnload the required project assets.
+- [x] 2  Download the required project assets.
 - [x] 3. Review the functionality of the application within your browser.
 - [x] 4. Explore the application's HTML (./index.html), CSS (./css/style.css) and JavaScript (./js/app.js) to gain an understanding of how it works.
 - [x] 5. Explore the Jasmine spec file in ./jasmine/spec/feedreader.js and review the Jasmine documentation.
@@ -29,5 +29,5 @@ Expected 0 not to be 0.
 - [x] 18. Callbacks should be used to ensure that feeds are loaded before they are tested.
 - [x] 19. Implement error handling for undefined variables and out-of-bound array access.
 - [x] 20. When complete - all of your tests should pass.
-- [ ] 21. Write a README file detailing all steps required to successfully run the application. 
+- [x] 21. Write a README file detailing all steps required to successfully run the application. 
 - [ ] 22. TODO: Write additional tests (for Udacious Test Coverage). Provide documentation for what these future features are and what the tests are checking for.
