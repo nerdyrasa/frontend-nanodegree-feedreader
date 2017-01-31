@@ -38,9 +38,9 @@ $(function() {
          * and that the name is not empty.
          */
         it('name is defined', function() {
-            allFeeds.forEach(function(element) {
-                expect(element.name).toBeDefined();
-                expect(element.name.length).not.toBe(0);
+            allFeeds.forEach(function(feed) {
+                expect(feed.name).toBeDefined();
+                expect(feed.name.length).not.toBe(0);
             });
         });
     });
