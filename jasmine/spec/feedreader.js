@@ -91,7 +91,7 @@ $(function() {
         });
 
         it('should be loaded', function() {
-            expect($('.entry').length).toBeGreaterThan(0);
+            expect($('.feed .entry').length).toBeGreaterThan(0);
         });
     });
 
