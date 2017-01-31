@@ -27,9 +27,9 @@ $(function() {
          * and that the URL is not empty.
          */
         it('url is defined', function() {
-            allFeeds.forEach(function(element) {
-                expect(element.url).toBeDefined();
-                expect(element.url.length).not.toBe(0);
+            allFeeds.forEach(function(feed) {
+                expect(feed.url).toBeDefined();
+                expect(feed.url.length).not.toBe(0);
             });
         });
 
@@ -87,14 +87,11 @@ $(function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
 
-            loadFeed(0, function() {
-                done();
-            });
+            loadFeed(0, done);
         });
 
-        it('should be loaded', function(done) {
+        it('should be loaded', function() {
             expect($('.entry').length).toBeGreaterThan(0);
-            done();
         });
     });
 
