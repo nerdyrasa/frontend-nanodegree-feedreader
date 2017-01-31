@@ -9,25 +9,20 @@
  * to ensure they don't run until the DOM is ready.
  */
 $(function() {
-    /* This is our first test suite - a test suite just contains
-    * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
+    /* This test suite checks that allFeeds, allFeeds.url and
+       allFeeds.name are all defined.
     */
     describe('RSS Feeds', function() {
-        /* This is our first test - it tests to make sure that the
+        /* This test verifies that the
          * allFeeds variable has been defined and that it is not
-         * empty. Experiment with this before you get started on
-         * the rest of this project. Q: What happens when you change
-         * allFeeds in app.js to be an empty array and refresh the
-         * page? A: Test does not pass. Error is Expected 0 not to be 0.
+         * empty.
          */
-        it('are defined', function() {
+        it('allFeeds are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* A test that loops through each feed
+        /* This test loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
@@ -36,11 +31,9 @@ $(function() {
                 expect(element.url).toBeDefined();
                 expect(element.url.length).not.toBe(0);
             });
-
         });
 
-
-        /* A test that loops through each feed
+        /* This test loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
@@ -49,23 +42,18 @@ $(function() {
                 expect(element.name).toBeDefined();
                 expect(element.name.length).not.toBe(0);
             });
-
         });
     });
 
-
-    /* TODO: Write a new test suite named "The menu" */
-
     describe('The menu', function() {
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
+        /* This test ensures that the menu element is
+         * hidden by default.
          */
 
+        /* The menu is hidden if it has the class menu-hidden.
+         */
         it('is hidden by default', function(){
-
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
@@ -74,25 +62,20 @@ $(function() {
          * should have two expectations: does the menu display when
          * clicked and does it hide when clicked again.
          */
-
         it('menu changes on click', function() {
-
             $('.menu-icon-link').trigger('click');
             expect($('body').hasClass('menu-hidden')).toBe(false);
             $('.menu-icon-link').trigger('click');
             expect($('body').hasClass('menu-hidden')).toBe(true);
-
         });
-
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
 
         /* This test ensures that when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
+         * Note that loadFeed() is asynchronous so this test requires
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
         beforeEach(function(done) {
@@ -102,50 +85,48 @@ $(function() {
         });
 
         it('should be loaded', function(done) {
-            expect($('.entry-link').length).toBeGreaterThan(0);
+            expect($('.entry').length).toBeGreaterThan(0);
             done();
         });
     });
 
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
 
         /* This test ensures that when a new feed is loaded
          * by the loadFeed function that the content actually changes.
-         * loadFeed() is asynchronous.
+         * Note that loadFeed() is asynchronous.
          */
 
-        // Test setup loads a feed. Then need to load another feed.
-        // "Compare" the two feeds. Now how do you "compare" the two?
+        // Test setup loads a feed which is the "old" feed.
         var oldFeedHref = null,
             newFeedHref = null;
 
-
-        // The old feed is loaded first. This is asynchronous.
-
-
+        // Setup:
+        // Select the feed with index 0 to be the oldFeed to get the href for comparison.
         beforeEach(function(done) {
-             // This will store the old content in the variable oldFeed which then will be used for comparision with the old feed.
             loadFeed(0, function() {
-                oldFeed = $('.entry').html();
-                console.log('old ', oldFeed);
-
+                oldFeedHref = $('.entry-link').first().attr('href');
                 done();
             });
         });
 
         it('Should change the content', function(done) {
-
-            loadFeed(0, function() {
-                newFeed = $('.entry').html();
-                console.log('new ', newFeed);
-                expect(oldFeed).not.toEqual(newFeed);
+            // Select feed with index 1 to be the newFeed. Compare the href values of the new and old feeds.
+            // The test passes if the href values are not equal.
+            loadFeed(1, function() {
+                newFeedHref = $('.entry-link').first().attr('href');
+                expect(oldFeedHref).not.toEqual(newFeedHref);
                 done();
             });
+
+            // Uncomment the following to get a failing test.
+            //loadFeed(0, function() {
+            //    newFeedHref = $('.entry-link').first().attr('href');
+            //    console.log('new ', newFeedHref);
+            //    expect(oldFeed).not.toEqual(newFeed);
+            //    done();
+            //});
         });
-
-
     });
-
 }());
